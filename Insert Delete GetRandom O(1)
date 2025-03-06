@@ -1,0 +1,40 @@
+public class RandomizedSet {
+
+    List<int> arr;               
+    Dictionary<int, int> map;    
+    Random rand;  
+
+    public RandomizedSet() {
+        arr = new List<int>();
+        map = new Dictionary<int, int>();
+        rand = new Random();
+    }
+    
+    public bool Insert(int val) {
+        if (map.ContainsKey(val))
+        {
+            return false; 
+        }
+        arr.Add(val);
+        map[val] = arr.Count - 1;
+        return true;
+    }
+    public bool Remove(int val) {
+        if (!map.ContainsKey(val))
+        {
+            return false; 
+        }
+        int Removeindex = map[val];
+        int lastValue = arr[arr.Count - 1];
+        arr[Removeindex] = lastValue;
+        map[lastValue] = Removeindex;
+        
+        arr.RemoveAt(arr.Count - 1);
+        map.Remove(val);
+        return true;   
+    }
+    public int GetRandom() {
+        int randomIndex = rand.Next(arr.Count); 
+        return arr[randomIndex]; 
+    }
+}
